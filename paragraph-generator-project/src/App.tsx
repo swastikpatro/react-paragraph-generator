@@ -8,8 +8,8 @@ function App() {
   const [paraCount, setParaCount] = useState(0);
   const [text, setText] = useState<string[]>([]);
 
-  const notify = () =>
-    toast.success('Generated!', {
+  function notify(count: number): void {
+    toast.success(`Generated ${count} paragraphs`, {
       position: 'top-left',
       autoClose: 1000,
       hideProgressBar: true,
@@ -19,6 +19,7 @@ function App() {
       progress: undefined,
       theme: 'dark',
     });
+  }
 
   function handleSubmit(e: React.SyntheticEvent): void {
     e.preventDefault();
@@ -41,7 +42,7 @@ function App() {
   }
   return (
     <div className='section-center'>
-      <h3>tired of boring lorem ipsum</h3>
+      <h3>tired of boring lorem ipsum ?</h3>
       <form className='lorem-form' onSubmit={handleSubmit}>
         <label htmlFor='amount'>Paragraphs: </label>
         <span>
@@ -55,7 +56,7 @@ function App() {
           <button
             className='btn'
             onClick={() => {
-              paraCount <= 1000 && notify();
+              paraCount <= 1000 && paraCount > 0 && notify(paraCount);
             }}
           >
             generate
@@ -80,7 +81,7 @@ function App() {
           <span>Sorry Can't Generate Paragraphs more than 1000 🙏🏻</span>
         ) : (
           text.map((singleText, i) => (
-            <p key={i + 1}>
+            <p key={new Date().getTime().toString()}>
               <span>{i + 1}.</span> {singleText}
             </p>
           ))
