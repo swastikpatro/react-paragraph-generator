@@ -81,7 +81,7 @@ function App() {
           <span>Sorry Can't Generate Paragraphs more than 1000 🙏🏻</span>
         ) : (
           text.map((singleText, i) => (
-            <p key={new Date().getTime().toString()}>
+            <p key={i + 1}>
               <span>{i + 1}.</span> {singleText}
             </p>
           ))
