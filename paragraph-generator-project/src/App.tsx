@@ -37,7 +37,7 @@ function App() {
   }
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
-    setParaCount((prevCount) => checkCount(Number(e.target.value)));
+    setParaCount((prevCount) => checkCount(e.target.valueAsNumber));
   }
   return (
     <div className='section-center'>
@@ -52,7 +52,12 @@ function App() {
             value={paraCount}
             onChange={(e) => handleChange(e)}
           />
-          <button className='btn' onClick={notify}>
+          <button
+            className='btn'
+            onClick={() => {
+              paraCount <= 1000 && notify();
+            }}
+          >
             generate
           </button>
           <ToastContainer
@@ -71,11 +76,15 @@ function App() {
       </form>
 
       <article className='lorem-text'>
-        {text.map((singleText, i) => (
-          <p key={i + 1}>
-            <span>{i + 1}.</span> {singleText}
-          </p>
-        ))}
+        {paraCount > 1000 ? (
+          <span>Sorry Can't Generate Paragraphs more than 1000 🙏🏻</span>
+        ) : (
+          text.map((singleText, i) => (
+            <p key={i + 1}>
+              <span>{i + 1}.</span> {singleText}
+            </p>
+          ))
+        )}
       </article>
     </div>
   );
